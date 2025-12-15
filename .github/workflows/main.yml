@@ -19,7 +19,7 @@
                 </div>
                 <div class="mb-4 col-span-1 md:col-span-2">
                     <label for="imagenUrl" class="block text-gray-700 font-bold mb-2">URL del Póster</label>
-                    <input type="url" id="imagenUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ej: https://hips.hearstapps.com/hmg-prod/images/acolyte-6661c5a26f37c.jpg?crop=1xw:1xh;center,top">
+                    <input type="url" id="imagenUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ej:https://hips.hearstapps.com/hmg-prod/images/acolyte-6661c5a26f37c.jpg?crop=1xw:1xh;center,top">
                 </div>
                 <div class="mb-4">
                     <label for="calificacion" class="block text-gray-700 font-bold mb-2">Calificación (1-10)</label>
