@@ -63,7 +63,7 @@
             // Crear una nueva fila en la tabla
             const nuevaFila = document.createElement('tr');
 
-            // Lógica para la celda de la imagen:
+            //Lógica para la celda de la imagen:
             let celdaImagenHTML;
             if (imagenUrl) {
                 // Si se proporcionó una URL, crea la etiqueta <img> con estilos para tamaño fijo
