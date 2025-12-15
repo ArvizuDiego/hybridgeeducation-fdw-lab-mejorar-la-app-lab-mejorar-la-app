@@ -57,7 +57,7 @@
             const anio = document.getElementById('anio').value;
             const calificacion = document.getElementById('calificacion').value;
             const resena = document.getElementById('resena').value;
-            // CAMBIO 3: Obtener el valor del nuevo campo de imagen
+            // CAMBIO 3:Obtener el valor del nuevo campo de imagen
             const imagenUrl = document.getElementById('imagenUrl').value;
 
             // Crear una nueva fila en la tabla
