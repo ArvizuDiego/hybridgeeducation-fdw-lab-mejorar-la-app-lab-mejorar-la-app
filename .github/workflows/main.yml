@@ -1,95 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HybridgeFlix</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 p-6">
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg"> <h1 class="text-2xl font-bold mb-4">HybridgeFlix</h1>
-        <form id="formularioPelicula" class="mb-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <div class="mb-4">
-                    <label for="titulo" class="block text-gray-700 font-bold mb-2">Título</label>
-                    <input type="text" id="titulo" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                </div>
-                <div class="mb-4">
-                    <label for="anio" class="block text-gray-700 font-bold mb-2">Año</label>
-                    <input type="number" id="anio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                </div>
-                <div class="mb-4 col-span-1 md:col-span-2">
-                    <label for="imagenUrl" class="block text-gray-700 font-bold mb-2">URL del Póster</label>
-                    <input type="url" id="imagenUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ej:https://hips.hearstapps.com/hmg-prod/images/acolyte-6661c5a26f37c.jpg?crop=1xw:1xh;center,top">
-                </div>
-                <div class="mb-4">
-                    <label for="calificacion" class="block text-gray-700 font-bold mb-2">Calificación (1-10)</label>
-                    <input type="number" id="calificacion" min="1" max="10" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                </div>
-                <div class="mb-4">
-                    <label for="resena" class="block text-gray-700 font-bold mb-2">Reseña</label>
-                    <textarea id="resena" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="4" required></textarea>
-                </div>
-            </div>
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar</button>
-        </form>
-        
-        <table class="min-w-full bg-white">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-600">Póster</th>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-600">Título</th>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-600">Año</th>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-600">Calificación</th>
-                    <th class="py-2 px-4 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-600">Reseña</th>
-                </tr>
-            </thead>
-            <tbody id="cuerpoTablaPeliculas">
-                </tbody>
-        </table>
-    </div>
+name: Verificacion de Sintaxis Simple
 
-    <script>
-        document.getElementById('formularioPelicula').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Obtener valores del formulario
-            const titulo = document.getElementById('titulo').value;
-            const anio = document.getElementById('anio').value;
-            const calificacion = document.getElementById('calificacion').value;
-            const resena = document.getElementById('resena').value;
-            // CAMBIO 3:Obtener el valor del nuevo campo de imagen
-            const imagenUrl = document.getElementById('imagenUrl').value;
+on:
+  # Dispara la evaluacion en cada push a la rama 'main'
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-            // Crear una nueva fila en la tabla
-            const nuevaFila = document.createElement('tr');
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-            //Lógica para la celda de la imagen:
-            let celdaImagenHTML;
-            if (imagenUrl) {
-                // Si se proporcionó una URL, crea la etiqueta <img> con estilos para tamaño fijo
-                celdaImagenHTML = `<td class="py-2 px-4 border-b border-gray-300">
-                                       <img src="${imagenUrl}" alt="Póster de ${titulo}" class="w-12 h-18 object-cover rounded shadow-md">
-                                   </td>`;
-            } else {
-                // Si no hay URL, deja la celda vacía o con un texto placeholder
-                celdaImagenHTML = `<td class="py-2 px-4 border-b border-gray-300 text-center text-xs text-gray-400">N/A</td>`;
-            }
+    steps:
+    # 1. Clonar el código
+    - uses: actions/checkout@v4
+      name: Clonar el Repositorio
 
-            // Añadir celdas a la fila (se ha reordenado para poner la imagen primero)
-            nuevaFila.innerHTML = `
-                ${celdaImagenHTML}
-                <td class="py-2 px-4 border-b border-gray-300 font-medium">${titulo}</td>
-                <td class="py-2 px-4 border-b border-gray-300">${anio}</td>
-                <td class="py-2 px-4 border-b border-gray-300">${calificacion}</td>
-                <td class="py-2 px-4 border-b border-gray-300 text-sm">${resena}</td>
-            `;
-
-            // Añadir la nueva fila al cuerpo de la tabla
-            document.getElementById('cuerpoTablaPeliculas').appendChild(nuevaFila);
-
-            // Limpiar el formulario
-            document.getElementById('formularioPelicula').reset();
-        });
-    </script>
-</body>
-</html>
+    # 2. Paso de verificacion simple
+    - name: Verificar Archivos
+      run: |
+        echo "El workflow esta configurado correctamente."
+        # Puedes agregar comandos de prueba aquí, si los tienes.
